@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:primecheck/utils/is_prime.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,17 +44,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
+  int _number = 0;
+  bool _isPrime = false;
   final textFieldController = TextEditingController();
 
-  void _incrementCounter() {
+  void checkIfNumberIsPrime() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter = int.parse(textFieldController.text);
+      _number = int.parse(textFieldController.text);
+      _isPrime = isPrime(_number);
     });
   }
 
@@ -86,9 +84,13 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$_counter',
+              '$_number',
               style: Theme.of(context).textTheme.headline4,
             ),
+            if (_isPrime) 
+              const Text("is a prime number")
+            else
+              const Text("is not a prime number"),
             TextField(
               decoration: const InputDecoration(labelText: "Enter your number"),
               controller: textFieldController,
@@ -99,7 +101,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 120),
             ElevatedButton(
-              onPressed: _incrementCounter,
+              onPressed: checkIfNumberIsPrime,
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(120, 60),
                 shape: RoundedRectangleBorder(
@@ -114,11 +116,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
