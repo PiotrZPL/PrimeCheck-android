@@ -44,10 +44,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var menuItems = <String>[
+    "About",
+  ];
+
+  void onSelected(item) {
+    switch (item) {
+      case 'About':
+        showDialog(
+          context: context,
+          builder: buildErrotDialog,
+        );
+        break;
+    }
+  }
+
   int _number = -1;
   bool _isPrime = false;
   int _numberThatDevides = 0;
   final textFieldController = TextEditingController();
+  String versionString = "0.2";
 
   void checkIfNumberIsPrime() {
     setState(() {
@@ -65,6 +81,33 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  Widget buildErrotDialog(BuildContext context) {
+    return AlertDialog(
+      title: Center(
+        child: Column(
+          children: [
+            const Text(
+              "PrimeCheck",
+              style: TextStyle(fontSize: 25),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 7,),
+            const Icon(Icons.info),
+            const SizedBox(height: 7,),
+            const Text(
+              "Released under the GNU GPL v3",
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              "version: $versionString",
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +115,21 @@ class _HomePageState extends State<HomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: const Text("PrimeCheck"),
+        actions: <Widget>[
+              PopupMenuButton<String>(
+                  onSelected: onSelected,
+                  itemBuilder: (BuildContext context) {
+                    return menuItems.map((String choice) {
+                      return PopupMenuItem<String>(
+                        value: choice,
+                        child: ListTile(
+                          title: Text(choice),
+                          leading: const Icon(Icons.info),
+                        ),
+                      );
+                    }).toList();
+                  })
+            ],
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
