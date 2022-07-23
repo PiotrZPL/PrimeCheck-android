@@ -67,12 +67,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -87,15 +81,41 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$_number',
-              style: Theme.of(context).textTheme.headline4,
+              "$_number",
+              style: TextStyle(
+                color: _isPrime ? Colors.green : Colors.red,
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             if (_isPrime) 
-              const Text("is a prime number.")
+              const Text(
+                "is a prime number.",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 22,
+                ),
+              )
             else
-              const Text("is not a prime number."),
+              const Text(
+                "is not a prime number.",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 22,
+                ),
+              ),
             if (_numberThatDevides != 0)
-              Text("It can be devided by $_numberThatDevides."),
+              Text(
+                "It can be devided by $_numberThatDevides.",
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 22,
+                ),
+              )
+            else
+              const SizedBox(
+                height: 26
+              ),
             TextField(
               decoration: const InputDecoration(labelText: "Enter your number"),
               controller: textFieldController,
