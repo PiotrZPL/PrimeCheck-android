@@ -46,12 +46,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _number = 0;
   bool _isPrime = false;
+  int _numberThatDevides = 0;
   final textFieldController = TextEditingController();
 
   void checkIfNumberIsPrime() {
     setState(() {
       _number = int.parse(textFieldController.text);
-      _isPrime = isPrime(_number);
+      List tempList = isPrime(_number);
+      _isPrime = tempList[0];
+      _numberThatDevides = tempList[1];
     });
   }
 
@@ -88,9 +91,11 @@ class _HomePageState extends State<HomePage> {
               style: Theme.of(context).textTheme.headline4,
             ),
             if (_isPrime) 
-              const Text("is a prime number")
+              const Text("is a prime number.")
             else
-              const Text("is not a prime number"),
+              const Text("is not a prime number."),
+            if (_numberThatDevides != 0)
+              Text("It can be devided by $_numberThatDevides."),
             TextField(
               decoration: const InputDecoration(labelText: "Enter your number"),
               controller: textFieldController,
