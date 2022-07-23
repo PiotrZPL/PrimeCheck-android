@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:primecheck/utils/is_prime.dart';
+import 'package:primecheck/widgets/page_content.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,7 +44,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _number = 0;
+  int _number = -1;
   bool _isPrime = false;
   int _numberThatDevides = 0;
   final textFieldController = TextEditingController();
@@ -76,70 +76,13 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "$_number",
-              style: TextStyle(
-                color: _isPrime ? Colors.green : Colors.red,
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            if (_isPrime) 
-              const Text(
-                "is a prime number.",
-                style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 22,
-                ),
-              )
-            else
-              const Text(
-                "is not a prime number.",
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 22,
-                ),
-              ),
-            if (_numberThatDevides != 0)
-              Text(
-                "It can be devided by $_numberThatDevides.",
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 22,
-                ),
-              )
-            else
-              const SizedBox(
-                height: 26
-              ),
-            TextField(
-              decoration: const InputDecoration(labelText: "Enter your number"),
-              controller: textFieldController,
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
-            ),
-            const SizedBox(height: 120),
-            ElevatedButton(
-              onPressed: checkIfNumberIsPrime,
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(120, 60),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
-                )
-              ),
-              child: Text(
-                "Check",
-                style: Theme.of(context).textTheme.headline6,
-              )
-            )
-          ],
-        ),
+        child: PageContent(
+          number: _number,
+          isPrime: _isPrime,
+          numberThatDevides: _numberThatDevides,
+          textFieldController: textFieldController,
+          checkIfNumberIsPrime: checkIfNumberIsPrime,
+        )
       ),
     );
   }
