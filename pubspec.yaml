@@ -89,9 +89,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  assets:
+    - assets/images/icon-1.png
 
 
 flutter_icons:
-  image_path: "assets/images/icon.png"
+  image_path: "assets/images/icon-1.png"
   android: true
   ios: true
+  adaptive_icon_background: "#000000"

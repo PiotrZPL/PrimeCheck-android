@@ -69,7 +69,12 @@ class _HomePageState extends State<HomePage> {
           context: context,
           applicationVersion: versionString,
           applicationName: "PrimeCheck",
-          applicationLegalese: "Released under the terms of the GNU GPL v3.\n\nCopyright (c) 2022 Piotr Lange"
+          applicationLegalese: "Released under the terms of the GNU GPL v3.\n\nCopyright (c) 2022 Piotr Lange",
+          applicationIcon: const Image(
+            image: AssetImage("assets/images/icon-1.png"),
+            width: 52,
+            height: 52,
+          )
         );
         break;
     }
