@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
   bool _isPrime = false;
   int _numberThatDevides = 0;
   final textFieldController = TextEditingController();
-  String versionString = "0.2";
+  String versionString = "0.2.0";
 
   void checkIfNumberIsPrime() {
     setState(() {

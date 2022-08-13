@@ -1,4 +1,4 @@
-package com.example.primecheck
+package com.piotrlange.primecheck
 
 import io.flutter.embedding.android.FlutterActivity
 
