@@ -1,8 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:primecheck/utils/is_prime.dart';
 import 'package:primecheck/widgets/page_content.dart';
+import 'package:primecheck/utils/license.dart';
 
 void main() {
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks(
+      ["PrimeCheck"],
+      licensetext,
+    );
+  });
+
   runApp(const MyApp());
 }
 
@@ -18,9 +27,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.cyan,
       ),
       darkTheme: ThemeData(
-        primaryColor: Colors.white,
+        primaryColor: Colors.black,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,
+        colorScheme: const ColorScheme.dark(),
       ),
       home: const HomePage(),
     );
@@ -51,9 +61,15 @@ class _HomePageState extends State<HomePage> {
   void onSelected(item) {
     switch (item) {
       case 'About':
-        showDialog(
+        // showDialog(
+        //   context: context,
+        //   builder: buildErrotDialog,
+        // );
+        showAboutDialog(
           context: context,
-          builder: buildErrotDialog,
+          applicationVersion: versionString,
+          applicationName: "PrimeCheck",
+          applicationLegalese: "Released under the terms of the GNU GPL v3.\n\nCopyright (c) 2022 Piotr Lange"
         );
         break;
     }
