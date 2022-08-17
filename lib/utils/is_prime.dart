@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2021-2022 Piotr Lange
+Copyright (C) 2021-2022 Piotr Lange and sutani127
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,16 +14,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-List isPrime (int numberToCheck) {
-  if (numberToCheck > 1) {
-    for (var iii = 2; iii <= numberToCheck ~/ 2; iii++) {
-      if (numberToCheck % iii == 0) {
-        return [false, iii];
-      }
-    }
-  }
-  else {
+import 'dart:math';
+
+
+List isPrime(int numberToCheck) {
+  if (numberToCheck < 2) {
     return [false, 0];
+  }
+  else if (numberToCheck == 2) {
+    return [true, 0];
+  }
+  if (numberToCheck % 2 == 0) {
+    return [false, 2];
+  }
+  final int lim = sqrt(numberToCheck).toInt();
+  for (int i = 3; i <= lim; i += 2) {
+    if (numberToCheck % i == 0) {
+      return [false, i];
+    }
   }
   return [true, 0];
 }
