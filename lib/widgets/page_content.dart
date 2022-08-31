@@ -60,7 +60,7 @@ class PageContent extends StatelessWidget {
               ),
             if (numberThatDevides != 0)
               Text(
-                "It can be devided by $numberThatDevides.",
+                "It is divisible by $numberThatDevides.",
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 22,
