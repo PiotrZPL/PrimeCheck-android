@@ -18,20 +18,32 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import 'dart:math';
 
 
-List isPrime(final int number)
-{
-	if (number <= 1) return [false, 0];
-	if (number == 2) return [true, 0];
-	if (number == 3) return [true, 0];
-	if (number % 2 == 0) return [false, 2];
-	if (number % 3 == 0) return [false, 3];
+List isPrime(final int number) {
+	if (number <= 1) {
+    return [false, 0];
+  }
+	if (number == 2) {
+    return [true, 0];
+  }
+	if (number == 3) {
+    return [true, 0];
+  }
+	if (number % 2 == 0) {
+    return [false, 2];
+  }
+	if (number % 3 == 0) {
+    return [false, 3];
+  }
 
 	final int lim = sqrt(number).toInt();
-	for (int i = 5; i <= lim; i += 6)
-	{
-		if (number % i == 0) return [false, i];
-		if (number % (i + 2) == 0) return [false, i + 2];
+	for (int i = 5; i <= lim; i += 6) {
+		if (number % i == 0) {
+      return [false, i];
+    }
+		if (number % (i + 2) == 0) {
+      return [false, i + 2];
+    }
 	}
-
+  
 	return [true, 0];
 }
