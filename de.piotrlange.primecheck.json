@@ -1,0 +1,59 @@
+{
+  "app-id": "de.piotrlange.primecheck",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "22.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "primecheck",
+  "separate-locales": false,
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--device=dri",
+    "--socket=pulseaudio",
+    "--share=network"
+  ],
+  "modules": [
+    {
+      "name": "primecheck",
+      "buildsystem": "simple",
+      "only-arches": [
+        "x86_64"
+      ],
+      "build-commands": [
+        "mkdir -p PrimeCheck",
+        "tar -xf PrimeCheck.tar.gz -C PrimeCheck",
+        "cp -r PrimeCheck /app/",
+        "chmod +x /app/PrimeCheck/primecheck",
+        "mkdir -p /app/bin",
+        "ln -s /app/PrimeCheck/primecheck /app/bin/primecheck",
+        "mkdir -p /app/share/metainfo",
+        "cp -r de.piotrlange.primecheck.metainfo.xml /app/share/metainfo/",
+        "mkdir -p /app/share/icons/hicolor/scalable/apps",
+        "cp -r icon.svg /app/share/icons/hicolor/scalable/apps/de.piotrlange.primecheck.svg",
+        "mkdir -p /app/share/applications",
+        "cp -r de.piotrlange.primecheck.desktop /app/share/applications/",
+        "mkdir -p /app/share/appdata",
+        "cp -r de.piotrlange.primecheck.metainfo.xml /app/share/appdata/"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "path": "de.piotrlange.primecheck.metainfo.xml"
+        },
+        {
+          "type": "file",
+          "path": "de.piotrlange.primecheck.desktop"
+        },
+        {
+          "type": "file",
+          "path": "icon.svg"
+        },
+        {
+          "type": "file",
+          "path": "PrimeCheck.tar.gz"
+        }
+      ]
+    }
+  ]
+}

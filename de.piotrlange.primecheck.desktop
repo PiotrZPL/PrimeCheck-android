@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+
+Name=PrimeCheck
+Comment=An example app that counts
+Categories=Utility;Amusement;
+
+Icon=de.piotrlange.primecheck
+Exec=primecheck
+Terminal=false
+StartupWMClass=primecheck
