@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2021-2022 Piotr Lange
+Copyright (C) 2021-2023 Piotr Lange
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
           context: context,
           applicationVersion: versionString,
           applicationName: "PrimeCheck",
-          applicationLegalese: "Released under the terms of the GNU GPL v3.\n\nCopyright (c) 2022 Piotr Lange",
+          applicationLegalese: "Released under the terms of the GNU GPL v3.\n\nCopyright (c) 2022-${DateTime.now().year} Piotr Lange",
           applicationIcon: const Image(
             image: AssetImage("assets/images/icon-1.png"),
             width: 52,
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
   bool _isPrime = false;
   int _numberThatDevides = 0;
   final textFieldController = TextEditingController();
-  String versionString = "0.2.0";
+  String versionString = "0.2.1";
 
   void checkIfNumberIsPrime() {
     setState(() {

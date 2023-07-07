@@ -1,0 +1,1 @@
+Added the dynamic_color package to make the primary color the same as the system's.
