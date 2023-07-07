@@ -16,6 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:primecheck/utils/is_prime.dart';
 import 'package:primecheck/widgets/page_content.dart';
 import 'package:primecheck/utils/license.dart';
@@ -37,19 +38,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PrimeCheck',
-      theme: ThemeData(
-        primarySwatch: Colors.cyan,
-      ),
-      darkTheme: ThemeData(
-        primaryColor: Colors.black,
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
-        colorScheme: const ColorScheme.dark(),
-      ),
-      home: const HomePage(),
-    );
+    return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
+      return MaterialApp(
+        title: 'PrimeCheck',
+        theme: ThemeData(
+          colorScheme: lightColorScheme ?? const ColorScheme.light(),
+          useMaterial3: true,
+        ),
+        darkTheme: ThemeData(
+          colorScheme: darkColorScheme ?? const ColorScheme.dark(),
+          useMaterial3: true,
+        ),
+        themeMode: ThemeMode.system,
+        home: const HomePage(),
+      );
+    });
   }
 }
 

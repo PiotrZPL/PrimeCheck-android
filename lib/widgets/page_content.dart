@@ -101,7 +101,9 @@ class PageContent extends StatelessWidget {
               ),
               child: Text(
                 "Check",
-                style: Theme.of(context).textTheme.headline6,
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.titleLarge!.fontSize
+                ),
               )
             )
           ],
@@ -152,7 +154,9 @@ class PageContent extends StatelessWidget {
               ),
               child: Text(
                 "Check",
-                style: Theme.of(context).textTheme.headline6,
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.titleLarge!.fontSize
+                ),
               )
             )
           ],
