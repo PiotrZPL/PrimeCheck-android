@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class PageContent extends StatelessWidget {
-  const PageContent({Key? key, required this.number, required this.isPrime, required this.numberThatDevides, required this.textFieldController, required this.checkIfNumberIsPrime}) : super(key: key);
+  const PageContent({super.key, required this.number, required this.isPrime, required this.numberThatDevides, required this.textFieldController, required this.checkIfNumberIsPrime});
 
   final int number;
   final bool isPrime;
