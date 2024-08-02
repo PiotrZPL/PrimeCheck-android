@@ -98,6 +98,7 @@ class PageContent extends StatelessWidget {
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.digitsOnly
                       ],
+                      onSubmitted: (_) {checkIfNumberIsPrime();},
                     ),
                   ),
                 ],
