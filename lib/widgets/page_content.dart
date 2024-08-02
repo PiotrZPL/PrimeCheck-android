@@ -144,15 +144,9 @@ class PageContent extends StatelessWidget {
             const SizedBox(
               height: 120
             ),
-            ElevatedButton(
+            FloatingActionButton.extended(
               onPressed: checkIfNumberIsPrime,
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(120, 60),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
-                )
-              ),
-              child: Text(
+              label: Text(
                 "Check",
                 style: TextStyle(
                   fontSize: Theme.of(context).textTheme.titleLarge!.fontSize
