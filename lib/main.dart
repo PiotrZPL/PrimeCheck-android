@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2021-2023 Piotr Lange
+Copyright (C) 2021-2024 Piotr Lange
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
   bool _isPrime = false;
   int _numberThatDevides = 0;
   final textFieldController = TextEditingController();
-  String versionString = "0.2.1";
+  String versionString = "0.3.0";
 
   void checkIfNumberIsPrime() {
     setState(() {
