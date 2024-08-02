@@ -24,7 +24,7 @@ import 'package:primecheck/utils/license.dart';
 void main() {
   LicenseRegistry.addLicense(() async* {
     yield LicenseEntryWithLineBreaks(
-      ["PrimeCheck"],
+      ["Prime Check"],
       licensetext,
     );
   });
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
       return MaterialApp(
-        title: 'PrimeCheck',
+        title: 'Prime Check',
         theme: ThemeData(
           colorScheme: lightColorScheme ?? const ColorScheme.light(),
           useMaterial3: true,
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
         showAboutDialog(
           context: context,
           applicationVersion: versionString,
-          applicationName: "PrimeCheck",
+          applicationName: "Prime Check",
           applicationLegalese: "Released under the terms of the GNU GPL v3.\n\nCopyright (c) 2022-${DateTime.now().year} Piotr Lange",
           applicationIcon: const Image(
             image: AssetImage("assets/images/icon-1.png"),
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             const Text(
-              "PrimeCheck",
+              "Prime Check",
               style: TextStyle(fontSize: 25),
               textAlign: TextAlign.center,
             ),
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: const Text("PrimeCheck"),
+        title: const Text("Prime Check"),
         actions: <Widget>[
               PopupMenuButton<String>(
                   onSelected: onSelected,
