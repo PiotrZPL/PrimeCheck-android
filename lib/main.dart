@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/services.dart';
 import 'package:primecheck/utils/is_prime.dart';
 import 'package:primecheck/widgets/page_content.dart';
 import 'package:primecheck/utils/license.dart';
@@ -32,27 +32,61 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  static const _platform =
+      MethodChannel('de.piotrlange.primecheck/dynamic_color');
+
+  late final Future<Color> _seedColor = _loadSeedColor();
+
+  Future<Color> _loadSeedColor() async {
+    try {
+      final seedColorValue = await _platform.invokeMethod<int>(
+        'getSystemAccentColor',
+      );
+
+      if (seedColorValue != null) {
+        return Color(seedColorValue & 0xFFFFFFFF);
+      }
+    } on MissingPluginException {
+      // Tests and unsupported platforms do not provide Android dynamic color.
+    }
+
+    return Colors.green;
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
-      return MaterialApp(
-        title: 'Prime Check',
-        theme: ThemeData(
-          colorScheme: lightColorScheme ?? const ColorScheme.light(),
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: darkColorScheme ?? const ColorScheme.dark(),
-          useMaterial3: true,
-        ),
-        themeMode: ThemeMode.system,
-        home: const HomePage(),
-      );
-    });
+    return FutureBuilder<Color>(
+      future: _seedColor,
+      builder: (context, snapshot) {
+        final seedColor = snapshot.data ?? Colors.green;
+
+        return MaterialApp(
+          title: 'Prime Check',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: seedColor),
+            useMaterial3: true,
+          ),
+          darkTheme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: seedColor,
+              brightness: Brightness.dark,
+            ),
+            useMaterial3: true,
+          ),
+          themeMode: ThemeMode.system,
+          home: const HomePage(),
+        );
+      },
+    );
   }
 }
 
@@ -77,7 +111,7 @@ class _HomePageState extends State<HomePage> {
     "About",
   ];
 
-  void onSelected(item) {
+  void onSelected(String item) {
     switch (item) {
       case 'About':
         // showDialog(
@@ -88,12 +122,13 @@ class _HomePageState extends State<HomePage> {
           context: context,
           applicationVersion: versionString,
           applicationName: "Prime Check",
-          applicationLegalese: "Released under the terms of the GNU GPL v3.\n\nCopyright (c) 2022-${DateTime.now().year} Piotr Lange",
+          applicationLegalese:
+              "Released under the terms of the GNU GPL v3.\n\nCopyright (c) 2022-${DateTime.now().year} Piotr Lange",
           applicationIcon: const Image(
             image: AssetImage("assets/images/icon-1.png"),
             width: 52,
             height: 52,
-          )
+          ),
         );
         break;
     }
@@ -131,9 +166,13 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 25),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 7,),
+            const SizedBox(
+              height: 7,
+            ),
             const Icon(Icons.info),
-            const SizedBox(height: 7,),
+            const SizedBox(
+              height: 7,
+            ),
             const Text(
               "Released under the GNU GPL v3",
               style: TextStyle(fontSize: 16),
@@ -156,32 +195,31 @@ class _HomePageState extends State<HomePage> {
         // the App.build method, and use it to set our appbar title.
         title: const Text("Prime Check"),
         actions: <Widget>[
-              PopupMenuButton<String>(
-                  onSelected: onSelected,
-                  itemBuilder: (BuildContext context) {
-                    return menuItems.map((String choice) {
-                      return PopupMenuItem<String>(
-                        value: choice,
-                        child: ListTile(
-                          title: Text(choice),
-                          leading: const Icon(Icons.info),
-                        ),
-                      );
-                    }).toList();
-                  })
-            ],
+          PopupMenuButton<String>(
+              onSelected: onSelected,
+              itemBuilder: (BuildContext context) {
+                return menuItems.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: ListTile(
+                      title: Text(choice),
+                      leading: const Icon(Icons.info),
+                    ),
+                  );
+                }).toList();
+              })
+        ],
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: PageContent(
-          number: _number,
-          isPrime: _isPrime,
-          numberThatDevides: _numberThatDevides,
-          textFieldController: textFieldController,
-          checkIfNumberIsPrime: checkIfNumberIsPrime,
-        )
-      ),
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: PageContent(
+        number: _number,
+        isPrime: _isPrime,
+        numberThatDevides: _numberThatDevides,
+        textFieldController: textFieldController,
+        checkIfNumberIsPrime: checkIfNumberIsPrime,
+      )),
     );
   }
 }
